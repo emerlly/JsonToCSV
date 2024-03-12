@@ -1,8 +1,11 @@
+#Authors 
+# Emerlly Miranda 
+#Camily Vitória
 
 import json
 import csv
 
-with open ( 'dados.JSON', 'r', encoding='utf-8') as file:
+with open ( 'dados.json', 'r', encoding='utf-8') as file:
     data = json.load(file)
 
 authors = []
@@ -46,6 +49,19 @@ for book in data['Livros']:
             'Name': author['Nome'], 
             'Surname': autor['Sobrenome']})
 
+# Processando as revistas
+magazines = []
+for magazine in data['Revistas']:
+    title = magazine['Título']
+    mouth = magazine['Mês']
+    year = magazine['Ano']
+
+    magazines.append({
+        'Título': title,
+        'Mês': mouth,
+        'Ano': year,
+    })
+
 # Salva dados das tabelas em um arquivo .csv
 def write_csv(data, name_arquive):
     with open(name_arquive, 'w', newline='') as file:
@@ -54,5 +70,6 @@ def write_csv(data, name_arquive):
         writer.writerows(data)
 
 write_csv(books, 'authors_and_books.csv')
+write_csv(magazines, 'testeMagazie.csv')
 
 print("Arquivo .csv foi criado com sucesso.")
